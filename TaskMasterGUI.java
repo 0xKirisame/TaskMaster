@@ -102,7 +102,7 @@ public class TaskMasterGUI {
                 		System.out.print("Enter encryption password: ");
                         tm.getEncrypt().setKey(input.nextLine());
                 	}
-                	tm.saveTasks();
+                	tm.saveTasks(tm.getAllTasks());
                 }
                 case "7" -> {
                 	if (tm.getEncrypt().getKey().equals("")) {
@@ -119,7 +119,7 @@ public class TaskMasterGUI {
                 default -> System.out.println("❓ Invalid choice. Please try again.");
             }
             
-            System.out.println(); // Add a blank line for better readability
+            System.out.println();
         }
     }
 }
