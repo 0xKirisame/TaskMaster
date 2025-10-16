@@ -22,7 +22,7 @@ A simple Java-based Task Manager that supports creating, storing, retrieving, an
 - `Task.java` – Represents a single task
 - `TaskManager.java` – Manages all task logic and file operations
 - `TaskMasterGUI.java` – Console UI and interaction
-- `XOR.java` – class used for XOR encryption
+- `AES.java` – class used for AES-256 encryption (replaces XOR.java)
 
 ## 🧠 Concepts Used
 
@@ -31,11 +31,13 @@ A simple Java-based Task Manager that supports creating, storing, retrieving, an
 - Basic error handling
 - Linked List
 
- ## 🔒 "Security" Note  
-This project uses **XOR encryption for educational purposes only**.  
-- Why? To explore basic crypto concepts before upgrading to AES.  
-- **Not for real-world use**—but hey, it’s a start!  
-
+## 🔒 Security Note  
+This project now uses **AES-256-CBC encryption** for task data protection.  
+- Uses SHA-256 for key derivation from passwords
+- Implements proper AES encryption with CBC mode and PKCS5 padding
+- Files are encrypted/decrypted transparently during save/load operations
+- **Note**: For production use, consider implementing random IVs and PBKDF2 for key derivation
+  
 ## 🏁 Getting Started
 
 1. Clone the repository:
@@ -43,6 +45,7 @@ This project uses **XOR encryption for educational purposes only**.
    git clone https://github.com/Engineer-Salman/TaskMaster.git
 
 ## 🚀 Future Plans  
-- [ ] Replace XOR with AES-256 + proper key derivation.  
-- [ ] Add password salting (PBKDF2).
+- [x] Replace XOR with AES-256 + proper key derivation.  
+- [ ] Add password salting (PBKDF2) for enhanced security.
+- [ ] Implement random IVs for each encryption operation.
 - [ ] Adding GUI
