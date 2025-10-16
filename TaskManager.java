@@ -6,7 +6,7 @@ import java.util.LinkedList;
 public class TaskManager {
 	
     private static LinkedList<Task> tasks = new LinkedList<Task>();
-    private final static XOR encrypt = new XOR("");
+    private final static AES encrypt = new AES("");
     private static final String fileName = "session.ser";
     private static File file = new File(fileName);
     
@@ -48,10 +48,13 @@ public class TaskManager {
                 writer.writeObject(task);
             }
             System.out.println("Tasks saved successfully.");
-            XOR.encrypt(fileName);
+            AES.encrypt(fileName, encrypt.getKey());
         } 
         catch (IOException e) {
             System.out.println("Error saving tasks: " + e.getMessage());
+        }
+        catch (Exception e) {
+            System.out.println("Error encrypting tasks: " + e.getMessage());
         }
     }
     
@@ -69,7 +72,13 @@ public class TaskManager {
         }
 
         tasks.clear();
-        XOR.encrypt(fileName);
+        
+        try {
+            AES.encrypt(fileName, encrypt.getKey());
+        } catch (Exception e) {
+            System.out.println("Error decrypting tasks: " + e.getMessage());
+            return tasks;
+        }
         
         try (ObjectInputStream reader = new ObjectInputStream(new FileInputStream(fileName))) {
             
@@ -90,7 +99,7 @@ public class TaskManager {
 		return tasks;
           }        
 
-    public XOR getEncrypt() {
+    public AES getEncrypt() {
         return encrypt;
     }
 }
